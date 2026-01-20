@@ -114,7 +114,6 @@ class Build extends \Magento\Backend\App\Action implements HttpPostActionInterfa
             );
             $widgetPreview = $widgetBlock->toHtml();
         } catch (\Exception $e) {
-            dd($e);
             return $this->returnEmptyResult();
         }
 
