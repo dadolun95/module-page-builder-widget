@@ -36,14 +36,14 @@ class NewWidget extends \Magento\Catalog\Block\Product\Widget\NewWidget implemen
         $this->reviewRenderer = $reviewRenderer;
     }
 
-    public function getCacheKeyInfo(): array
+    public function getCacheKeyInfo()
     {
         return [];
     }
 
-    public function getCacheKey(): array
+    public function getCacheKey()
     {
-        return [];
+        return '';
     }
 
     /**
