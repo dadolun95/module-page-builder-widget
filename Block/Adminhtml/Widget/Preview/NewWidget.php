@@ -20,29 +20,22 @@ use Magento\Widget\Block\BlockInterface;
 use Magento\Widget\Helper\Conditions;
 
 /**
- * Catalog Products List widget block
+ * Product NewWidget widget block
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.ExcessiveParameterList)
  */
-class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList implements BlockInterface, IdentityInterface
+class NewWidget extends \Magento\Catalog\Block\Product\Widget\NewWidget implements BlockInterface, IdentityInterface
 {
 
     public function __construct(
-        Context $context,
-        CollectionFactory $productCollectionFactory,
-        Visibility $catalogProductVisibility,
+        \Magento\Catalog\Block\Product\Context $context,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Catalog\Model\Product\Visibility $catalogProductVisibility,
         HttpContext $httpContext,
-        SqlBuilder $sqlBuilder,
-        Rule $rule,
-        Conditions $conditionsHelper,
         ReviewRenderer $reviewRenderer,
         array $data = [],
-        ?Json $json = null,
-        ?LayoutFactory $layoutFactory = null,
-        ?EncoderInterface $urlEncoder = null,
-        ?CategoryRepositoryInterface $categoryRepository = null,
-        ?OptionsData $optionsData = null
+        ?\Magento\Framework\Serialize\Serializer\Json $serializer = null
     )
     {
         parent::__construct(
@@ -50,15 +43,8 @@ class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList imp
             $productCollectionFactory,
             $catalogProductVisibility,
             $httpContext,
-            $sqlBuilder,
-            $rule,
-            $conditionsHelper,
             $data,
-            $json,
-            $layoutFactory,
-            $urlEncoder,
-            $categoryRepository,
-            $optionsData
+            $serializer
         );
         $this->reviewRenderer = $reviewRenderer;
     }
@@ -100,16 +86,16 @@ class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList imp
      */
     public function getPagerHtml()
     {
-        if ($this->showPager() && $this->getProductCollection()->getSize() > $this->getProductsPerPage()) {
-            if (!$this->pager) {
-                $this->pager = $this->getLayout()->createBlock(
+        if ($this->showPager()) {
+            if (!$this->_pager) {
+                $this->_pager = $this->getLayout()->createBlock(
                     \Magento\Catalog\Block\Product\Widget\Html\Pager::class,
-                    $this->getWidgetPagerBlockName()
+                    'widget.new.product.list.pager'
                 );
 
-                $this->pager->setTemplate('MageOS_PageBuilderWidget::widget-preview/html/pager.phtml');
+                $this->_pager->setTemplate('MageOS_PageBuilderWidget::widget-preview/html/pager.phtml');
 
-                $this->pager->setUseContainer(true)
+                $this->_pager->setUseContainer(true)
                     ->setShowAmounts(true)
                     ->setShowPerPage(false)
                     ->setPageVarName($this->getData('page_var_name'))
@@ -117,8 +103,8 @@ class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList imp
                     ->setTotalLimit($this->getProductsCount())
                     ->setCollection($this->getProductCollection());
             }
-            if ($this->pager instanceof \Magento\Framework\View\Element\AbstractBlock) {
-                return $this->pager->toHtml();
+            if ($this->_pager instanceof \Magento\Framework\View\Element\AbstractBlock) {
+                return $this->_pager->toHtml();
             }
         }
         return '';
