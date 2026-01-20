@@ -3,30 +3,17 @@ declare(strict_types=1);
 
 namespace MageOS\PageBuilderWidget\Block\Adminhtml\Widget\Preview;
 
-use Magento\Catalog\Api\CategoryRepositoryInterface;
-use Magento\Catalog\Block\Product\Context;
-use Magento\Catalog\Model\Product\Visibility;
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
-use Magento\Catalog\ViewModel\Product\OptionsData;
-use Magento\CatalogWidget\Model\Rule;
 use Magento\Framework\App\Http\Context as HttpContext;
 use Magento\Framework\DataObject\IdentityInterface;
-use Magento\Framework\Serialize\Serializer\Json;
-use Magento\Framework\Url\EncoderInterface;
-use Magento\Framework\View\LayoutFactory;
-use Magento\Rule\Model\Condition\Sql\Builder as SqlBuilder;
-use MageOS\PageBuilderWidget\Block\Adminhtml\Widget\Preview\ReviewRenderer;
 use Magento\Widget\Block\BlockInterface;
-use Magento\Widget\Helper\Conditions;
 
-/**
- * Product NewWidget widget block
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.ExcessiveParameterList)
- */
 class NewWidget extends \Magento\Catalog\Block\Product\Widget\NewWidget implements BlockInterface, IdentityInterface
 {
+
+    /**
+     * @var ReviewRenderer
+     */
+    protected $reviewRenderer;
 
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,

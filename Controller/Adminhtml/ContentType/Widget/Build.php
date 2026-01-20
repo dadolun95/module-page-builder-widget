@@ -213,22 +213,13 @@ class Build extends \Magento\Backend\App\Action implements HttpPostActionInterfa
         if (!$type) {
             return false;
         }
+
+        $classToValidate = $type;
         if (!class_exists($type)) {
-            $resolvedClass = $this->objectManagerConfig->getInstanceType($type);
-            if (
-                !class_exists($resolvedClass)
-                || !is_subclass_of($resolvedClass, \Magento\Widget\Block\BlockInterface::class)
-            ) {
-                return false;
-            }
-        } else {
-            if (
-                !class_exists($type)
-                || !is_subclass_of($type, \Magento\Widget\Block\BlockInterface::class)
-            ) {
-                return false;
-            }
+            $classToValidate = $this->objectManagerConfig->getInstanceType($type);
         }
-        return true;
+
+        return class_exists($classToValidate)
+            && is_subclass_of($classToValidate, \Magento\Widget\Block\BlockInterface::class);
     }
 }

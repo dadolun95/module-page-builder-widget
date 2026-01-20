@@ -1,24 +1,9 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+declare(strict_types=1);
 
 namespace MageOS\PageBuilderWidget\Block\Adminhtml\Widget\Preview;
 
 use Magento\Catalog\Block\Product\ReviewRendererInterface;
-use Magento\Catalog\Model\Product;
-use Magento\Framework\App\ObjectManager;
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
-use Magento\Review\Model\AppendSummaryDataFactory;
-use Magento\Review\Model\Review;
-use Magento\Review\Model\ReviewFactory;
-use Magento\Review\Model\ReviewSummaryFactory;
-use Magento\Review\Observer\PredispatchReviewObserver;
-use Magento\Store\Model\ScopeInterface;
 
 /**
  * Review renderer

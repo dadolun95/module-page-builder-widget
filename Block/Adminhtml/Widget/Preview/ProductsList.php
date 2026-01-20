@@ -15,18 +15,16 @@ use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\Url\EncoderInterface;
 use Magento\Framework\View\LayoutFactory;
 use Magento\Rule\Model\Condition\Sql\Builder as SqlBuilder;
-use MageOS\PageBuilderWidget\Block\Adminhtml\Widget\Preview\ReviewRenderer;
 use Magento\Widget\Block\BlockInterface;
 use Magento\Widget\Helper\Conditions;
 
-/**
- * Catalog Products List widget block
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.ExcessiveParameterList)
- */
 class ProductsList extends \Magento\CatalogWidget\Block\Product\ProductsList implements BlockInterface, IdentityInterface
 {
+
+    /**
+     * @var ReviewRenderer
+     */
+    protected $reviewRenderer;
 
     public function __construct(
         Context $context,
